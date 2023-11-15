@@ -1,23 +1,23 @@
-const NotFoundError = (req, res, next) =>{
+const NotFoundError = (req, res, next) => {
     return res.status(404).json({
-        statuscode : res.statusCode,
-        error:{
-            type: "Not Found",
-            message : "not Found" + req.url + "route"
+        statusCode: res.statusCode,
+        error: {
+            type: 'NotFound',
+            message: "not found " + req.url + " route"
         }
     });
 }
 
-const errorHandler = (err, req, res, next) =>{
+const ErrorHandler = (err, req, res, next) => {
     return res.json({
-        statusCode : err.statusCode || 500,
+        statusCode: err.statusCode || 500,
         error: {
-            message : err.message || "Internal Server Error"
+            message: err.message || "InternalServerError"
         }
     });
 }
 
 module.exports = {
     NotFoundError,
-    errorHandler
-}
+    ErrorHandler
+};

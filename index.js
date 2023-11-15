@@ -1,5 +1,5 @@
 const express = require("express");
-const {errorHandler, notFoundError} = require("./util/errorHandler");
+const { ErrorHandler, NotFoundError } = require("./util/errorHandler");
 const app = express();
 
 app.use(express.json());
@@ -30,24 +30,21 @@ app.post("/data" , (req, res, next) =>{
         eif
     } = req.body;
     
-    console.log(userWeight);
-    console.log(userName);
-    weight = 200*((maxWeight - userWeight) / (maxWeight - minWeight));
-    distance = 200*((maxDistance - userDistance) / (maxDistance - minDistance));
-    time = 100*((maxTime - userTime) / (maxTime - minTime));
+    let weight = 200*((maxWeight - userWeight) / (maxWeight - minWeight));
+    let distance = 200*((maxDistance - userDistance) / (maxDistance - minDistance));
+    let time = 100*((maxTime - userTime) / (maxTime - minTime));
 
-    console.log(weight + "  " + distance + "    " + time + "    " + eif);
+    let totalScore = (parseInt((weight + distance + time)) * parseInt(eif)) + parseInt(creative) + parseInt(eggOut);
 
-    totalScore = (parseInt((weight + distance + time)) * parseInt(eif)) + parseInt(creative) + parseInt(eggOut);
-    console.log(totalScore);
-    console.log(eif);
     res.json({
         username: userName,
         userTotalScore: totalScore
     });
 
-
 });
+
+app.use(NotFoundError);
+app.use(ErrorHandler);
 
 
 app.listen(3000, (req,res) => {
