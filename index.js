@@ -17,24 +17,22 @@ app.post("/data" , (req, res, next) =>{
     const {
         userName,
         userWeight,
-        userDistance,
+        distanceScore,
         userTime,
         creative,
         eggOut,
         minWeight,
         maxWeight,
-        minDistance,
-        maxDistance,
         minTime,
         maxTime,
         eif
     } = req.body;
     
-    let weight = 200*((maxWeight - userWeight) / (maxWeight - minWeight));
-    let distance = 200*((maxDistance - userDistance) / (maxDistance - minDistance));
-    let time = 100*((maxTime - userTime) / (maxTime - minTime));
 
-    let totalScore = (parseInt((weight + distance + time)) * parseInt(eif)) + parseInt(creative) + parseInt(eggOut);
+    let weight = parseInt(200*((maxWeight - userWeight) / (maxWeight - minWeight)));
+    let time = parseInt(100*((maxTime - userTime) / (maxTime - minTime)));
+    let totalScore = (parseInt((weight + time + parseInt(distanceScore)) * parseInt(eif)) + parseInt(creative) + parseInt(eggOut));
+    
 
     res.json({
         username: userName,
